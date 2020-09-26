@@ -8,4 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface CakeRepository extends JpaRepository<CakeModel, UUID> {
+    boolean existsByTitle(String title);
 }

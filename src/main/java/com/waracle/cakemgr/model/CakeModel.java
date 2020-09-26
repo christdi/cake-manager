@@ -5,6 +5,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
@@ -23,12 +24,15 @@ public class CakeModel implements Serializable {
     private UUID id;
 
     @Column(name = "title", unique = true, nullable = false)
+    @NotEmpty
     private String title;
 
     @Column(name = "desc", nullable = false)
+    @NotEmpty
     private String desc;
 
     @Column(name = "image", nullable = false)
+    @NotEmpty
     private String image;
 
     public UUID getId() {

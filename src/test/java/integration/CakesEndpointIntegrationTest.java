@@ -20,6 +20,7 @@ import java.util.UUID;
 
 import static com.waracle.cakemgr.model.builder.CakeModelBuilder.aCakeModel;
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -94,6 +95,36 @@ public class CakesEndpointIntegrationTest {
         this.mockMvc.perform(post("/cakes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{'bad': 'bad'}"))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void GIVEN_the_create_cake_endpoint_WHEN_called_with_invalid_cake_THEN_return_error_status() throws Exception {
+        CakeModel cake = new CakeModel();
+        cake.setTitle("");
+        cake.setDesc("A tasty cake");
+        cake.setImage("http://wwww.cakesrus.com/tasty.jpg");
+
+        this.mockMvc.perform(post("/cakes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(cake)))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void GIVEN_the_create_cake_endpoint_WHEN_called_with_cake_that_already_exists_THEN_return_error_status() throws Exception {
+        when(cakeRepository.existsByTitle(anyString())).thenReturn(true);
+
+        CakeModel cake = new CakeModel();
+        cake.setTitle("tasty cake");
+        cake.setDesc("A tasty cake");
+        cake.setImage("http://wwww.cakesrus.com/tasty.jpg");
+
+        this.mockMvc.perform(post("/cakes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(cake)))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }

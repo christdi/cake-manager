@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Glorious Cakes</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+
+<body>
+    <div class="container">
+        <nav th:replace="fragments/header.html"/>
+
+        <div class="row">
+            <div class="col">
+                <h2>Add a new cake</h2>
+                <p>Please enter details to add a new cake</p>
+                <form action="#" th:action="@{/add}" th:object="${cake}" method="post">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('title')} ? is-invalid" id="title" placeholder="Enter cake title" th:field="*{title}"/>
+                        <div th:if="${#fields.hasErrors('title')}">
+                            <p id="titleHelp" class="text-danger">Supplied title was invalid</p>
+                            <ul>
+                                <li class="text-danger" th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('desc')} ? is-invalid" id="description" placeholder="Enter cake description" th:field="*{desc}"/>
+                        <div th:if="${#fields.hasErrors('desc')}">
+                            <p id="descriptionHelp" class="text-danger">Supplied description was invalid</p>
+                            <ul>
+                                <li class="text-danger" th:each="err : ${#fields.errors('desc')}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Image URL</label>
+                        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('image')} ? is-invalid" id="image" placeholder="Enter URL for cake image" th:field="*{image}"/>
+                        <div th:if="${#fields.hasErrors('image')}">
+                            <p id="imageHelp" class="text-danger">Supplied image URL was invalid</p>
+                            <ul>
+                                <li class="text-danger" th:each="err : ${#fields.errors('image')}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</html>
