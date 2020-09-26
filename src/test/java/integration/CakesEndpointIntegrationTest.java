@@ -1,6 +1,7 @@
-package com.waracle.cakemgr.controller;
+package integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.waracle.cakemgr.controller.CakeController;
 import com.waracle.cakemgr.model.CakeModel;
 import com.waracle.cakemgr.repository.CakeRepository;
 import org.junit.Before;
@@ -8,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest
 @RunWith(MockitoJUnitRunner.class)
-public class CakeControllerIntegrationTest {
+public class CakesEndpointIntegrationTest {
 
     private MockMvc mockMvc;
 
@@ -41,8 +41,6 @@ public class CakeControllerIntegrationTest {
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-
         mockMvc = MockMvcBuilders.standaloneSetup(cakeController).build();
     }
 

@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -60,5 +61,24 @@ public class CakeModel implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CakeModel cakeModel = (CakeModel) o;
+
+        return Objects.equals(id, cakeModel.id) &&
+                Objects.equals(title, cakeModel.title) &&
+                Objects.equals(desc, cakeModel.desc) &&
+                Objects.equals(image, cakeModel.image);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, desc, image);
     }
 }
